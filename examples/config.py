@@ -29,7 +29,7 @@ if sys.version_info[0] != 2 or sys.version_info[1] < 7:
 
 logger = logging.getLogger(__name__)
 
-class EdgeGridClient:
+class EdgeGridConfig():
 
 	def __init__(self, config_values):
 		
@@ -37,9 +37,9 @@ class EdgeGridClient:
 		optional_options = {'max_body':1024,'verbose':False}
 		arguments = {}
 		for argument in required_options:
-			if argument in config_values:
+			if argument in config_values and config_values[argument]:
 				arguments[argument] = config_values[argument]
-				required_options.pop(argument, None)		
+				required_options.remove(argument)		
 		
 		# sys.argv (command line) trumps all
 		for command_line_arg in sys.argv:
